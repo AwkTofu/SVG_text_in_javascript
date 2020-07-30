@@ -120,7 +120,7 @@ function append_text(g, text, id, x, y, fill_color, scale, horizontal_letter_spa
 	}
 }
 
-function append_text_w_wrap(g, text, id, x1, x2, y, fill_color, scale)
+function append_text_w_wrap(g, text, id, x1, x2, y, fill_color, scale, horizontal_spacing = 6, vertical_spacing = 12, stroke_width = 2)
 {
 	var currentX = x1;
 	var currentY = y;
@@ -128,8 +128,8 @@ function append_text_w_wrap(g, text, id, x1, x2, y, fill_color, scale)
 	var workSpace = x2 - x1;
 	var count = 0;
 	var currentStr = text;
-	var charWidth = 6 * scale;
-	var charHeight = 12 * scale;
+	var charWidth = horizontal_spacing * scale;
+	var charHeight = vertical_spacing * scale;
 	var charFit = Math.trunc(workSpace/charWidth);
 	while (count < text.length)
 	{
@@ -151,7 +151,7 @@ function append_text_w_wrap(g, text, id, x1, x2, y, fill_color, scale)
 			.attr("id", id)
 			.attr("d", letter)
 			.attr("fill", fill_color)
-			.attr("stroke-width", 2)
+			.attr("stroke-width", stroke_width)
 			.attr("pointer-events", "none")
 			.attr("transform", "translate(" + currentX + "," + currentY + ")scale("+scale+")");
 			//Finding the X location to input the next character
