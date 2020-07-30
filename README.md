@@ -1,5 +1,6 @@
-# SVG_text_in_javascript
+# Key things to know.
 This uses d3.js library: https://d3js.org/
+
 The SVG Path was created using an mono space font.
 
 ## Creating SVG Paths
