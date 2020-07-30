@@ -97,3 +97,25 @@ character_array =
 	"!":"m0.7-1.6c0.5 0 0.7 0.3 0.7 0.8 0.1 0.5-0.2 0.8-0.7 0.8s-0.7-0.3-0.7-0.8c0-0.6 0.2-0.8 0.7-0.8zm0.4-1h-0.7l-0.3-6.1h1.3l-0.3 6.1z"
 };
 
+function append_text(g, text, id, x, y, fill_color, scale)
+{
+	var startX = x;
+	var group = d3.select(g)
+
+	for (var i = 0; i < text.length; i++)
+	{
+		var letter = character_array[text[i]];
+
+		//Appending next svg
+		group.append("path")
+			.attr("id", id)
+			.attr("d", letter)
+			.attr("fill", fill_color)
+			.attr("stroke-width", 2)
+			.attr("pointer-events", "none")
+			.attr("transform", "translate(" + startX + "," + y + ")scale("+scale+")");
+
+		//Finding the location to input the next character
+		startX += 6*scale;
+	}
+}
