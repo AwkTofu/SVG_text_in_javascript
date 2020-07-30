@@ -119,3 +119,52 @@ function append_text(g, text, id, x, y, fill_color, scale, horizontal_letter_spa
 		startX += horizontal_letter_spacing * scale;
 	}
 }
+
+function append_text_w_wrap(g, text, id, x1, x2, y, fill_color, scale)
+{
+	var currentX = x1;
+	var currentY = y;
+	var group = d3.select(g)
+	var workSpace = x2 - x1;
+	var count = 0;
+	var currentStr = text;
+	var charWidth = 6 * scale;
+	var charHeight = 12 * scale;
+	var charFit = Math.trunc(workSpace/charWidth);
+	while (count < text.length)
+	{
+		var lastSpaceChar = charFit;
+		if (currentStr.length > charFit) //Checks for last Space within workspace
+			for (var i = charFit - 1; i >= 0; i--)
+			{
+				if (currentStr.charAt(i) == ' ')
+				{
+					lastSpaceChar = i;
+					break;
+				}
+			}
+		for (var i = 0; i < lastSpaceChar; i++)
+		{
+			var letter = character_array[currentStr[i]];
+			//Appending next svg
+			group.append("path")
+			.attr("id", id)
+			.attr("d", letter)
+			.attr("fill", fill_color)
+			.attr("stroke-width", 2)
+			.attr("pointer-events", "none")
+			.attr("transform", "translate(" + currentX + "," + currentY + ")scale("+scale+")");
+			//Finding the X location to input the next character
+			currentX += charWidth;
+			count++;
+		}
+		//Resetting X location and finding new Y location
+		currentY += charHeight;
+		currentX = x1;
+		//The +1 is to get rid of the space. Ofc, the space itself is a char, so i'm adding to the count
+		currentStr = currentStr.substring(lastSpaceChar+1);
+		count++;
+	}
+	//It returns the Next Y Location if you have futher Strings to input.
+	return currentY;
+}
