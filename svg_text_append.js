@@ -97,7 +97,7 @@ character_array =
 	"!":"m0.7-1.6c0.5 0 0.7 0.3 0.7 0.8 0.1 0.5-0.2 0.8-0.7 0.8s-0.7-0.3-0.7-0.8c0-0.6 0.2-0.8 0.7-0.8zm0.4-1h-0.7l-0.3-6.1h1.3l-0.3 6.1z"
 };
 
-function append_text(g, text, id, x, y, fill_color, scale)
+function append_text(g, text, id, x, y, fill_color, scale, horizontal_letter_spacing = 6, stroke_width = 2)
 {
 	var startX = x;
 	var group = d3.select(g)
@@ -111,11 +111,11 @@ function append_text(g, text, id, x, y, fill_color, scale)
 			.attr("id", id)
 			.attr("d", letter)
 			.attr("fill", fill_color)
-			.attr("stroke-width", 2)
+			.attr("stroke-width", stroke_width)
 			.attr("pointer-events", "none")
 			.attr("transform", "translate(" + startX + "," + y + ")scale("+scale+")");
 
 		//Finding the location to input the next character
-		startX += 6*scale;
+		startX += horizontal_letter_spacing * scale;
 	}
 }
